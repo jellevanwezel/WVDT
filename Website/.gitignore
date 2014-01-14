@@ -1,0 +1,10 @@
+/code/assets/*
+/code/protected/runtime/*
+/code/protected/data/*.db
+/code/nbproject
+/code/nbproject/*
+*.toc
+*.aux
+*.txt
+*.synctex.gz
+*.log

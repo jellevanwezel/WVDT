@@ -1,0 +1,11 @@
+/Website/Code/nbproject/private/
+/Website/Code/assets/*
+/Website/Code/protected/runtime/*
+/Website/Code/protected/data/*.db
+/Website/Code/nbproject
+/Website/Code/nbproject/*
+*.toc
+*.aux
+*.txt
+*.synctex.gz
+*.log
