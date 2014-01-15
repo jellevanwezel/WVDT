@@ -7,27 +7,45 @@
  */
 class UserIdentity extends CUserIdentity
 {
-	/**
-	 * Authenticates a user.
-	 * The example implementation makes sure if the username and password
-	 * are both 'demo'.
-	 * In practical applications, this should be changed to authenticate
-	 * against some persistent user identity storage (e.g. database).
-	 * @return boolean whether authentication succeeds.
-	 */
-	public function authenticate()
-	{
-		$users=array(
-			// username => password
-			'demo'=>'demo',
-			'admin'=>'admin',
-		);
-		if(!isset($users[$this->username]))
-			$this->errorCode=self::ERROR_USERNAME_INVALID;
-		elseif($users[$this->username]!==$this->password)
-			$this->errorCode=self::ERROR_PASSWORD_INVALID;
-		else
-			$this->errorCode=self::ERROR_NONE;
-		return !$this->errorCode;
-	}
+
+    /**
+     * Authenticates a user, by checking if the username (email addres) password combination exists in the user database.
+     * @property integer $id Stores the id of the user if the user exists in the database.
+     * @return boolean whether authentication succeeds.
+     */
+    private $_id;
+
+    public function authenticate()
+    {
+        /* User provided email and password */
+        $email = $this->username;
+        $password = $this->password;
+
+        /* Database record of the user with the provided email */
+        $record = User::model()->findByAttributes(array('email' => $email));
+        if ($record === null)
+        { // Username does not exist in the database.
+            $this->errorCode = self::ERROR_USERNAME_INVALID;
+        }
+        else if (!CPasswordHelper::verifyPassword($password, $record->password))
+        { // Username does exist, but user entered wrong password.
+            $this->errorCode = self::ERROR_PASSWORD_INVALID;
+        }
+        else
+        { // Authentication was succesfull.
+            $this->_id = $record->id;
+            $this->errorCode = self::ERROR_NONE;
+        }
+        return !$this->errorCode;
+    }
+
+    /**
+     * 
+     * @return integer id of the user that was authenticated.
+     */
+    public function getId()
+    {
+        return $this->_id;
+    }
+
 }

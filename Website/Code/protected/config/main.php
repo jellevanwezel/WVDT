@@ -41,10 +41,10 @@ return array(
         ),
         // uncomment the following to use a MySQL database
         'db' => array(
-            'connectionString' => 'mysql:host=localhost;dbname=testdrive',
+            'connectionString' => 'mysql:host=localhost;dbname=wvdt',
             'emulatePrepare' => true,
-            'username' => 'root',
-            'password' => '',
+            'username' => 'WVDT',
+            'password' => 'WVDT',
             'charset' => 'utf8',
         ),
         'errorHandler' => array(
