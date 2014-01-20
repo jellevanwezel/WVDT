@@ -51,7 +51,7 @@
             })
                     .done(function(msg) {
                 $("#products").html(msg);
-                setClickEvents();
+                setAddEvents();
             });
         });
     });

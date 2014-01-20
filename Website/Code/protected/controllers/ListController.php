@@ -10,10 +10,9 @@ class ListController extends Controller {
 
     public function accessRules() {
         return array(
-//            array(
-//                'deny',
-//                'users' => array('*')
-//            ),
+            array(
+                'deny',
+            ),
             array(
                 'allow',
                 'actions' => array('index,ajaxGetProducts,ajaxAddProduct,AjaxRemoveProductUser'),
@@ -56,8 +55,10 @@ class ListController extends Controller {
         $PU->amount_scanned = 0;
         $PU->product_id = $id;
         $PU->user_id = Yii::app()->user->id;
-        if (!$PU->save())
-            throw new CHttpException(500, "Could not save :(");
+        if (!$PU->save()){
+            var_dump($PU->errors);
+            //throw new CHttpException(500, "Could not save :(");
+        }
         echo "$model->name is toegevoegd.";
     }
 

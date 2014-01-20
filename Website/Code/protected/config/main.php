@@ -25,6 +25,9 @@ return array(
     ),
     // application components
     'components' => array(
+        'authManager'=>array(
+            'class'=>'CPhpAuthManager',
+        ),
         'user' => array(
             // enable cookie-based authentication
             'allowAutoLogin' => true,

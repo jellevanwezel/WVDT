@@ -41,5 +41,10 @@ class WebUser extends CWebUser {
             $m->{$name} = $value;
         }
     }
+    
+    public function checkAccess($operation, $params = array(), $allowCaching = true) {
+        echo $operation;
+        exit();
+    }
 
 }
