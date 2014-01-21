@@ -89,7 +89,7 @@
             $.ajax({
                 type: "GET",
                 url: "<?php echo $this->createAbsoluteUrl('/list/AjaxChangeProductAmount'); ?>",
-                data: {id: id, amount: $('#product_amount_' + id).val()}
+                data: {id: id, amount: $('#product_amount_' + id).val()} 
             })
                     .done(function(msg) {
                         refreshProductList();
