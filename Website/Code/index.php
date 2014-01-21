@@ -1,5 +1,10 @@
 <?php
 
+if (isset($_POST['sessionId']))
+{
+   $_COOKIE['PHPSESSID'] = $_POST['sessionId'];
+}
+
 // change the following paths if necessary
 $yii=dirname(__FILE__).'/../Framework/Yii 1.1.14/yii.php';
 $config=dirname(__FILE__).'/protected/config/main.php';

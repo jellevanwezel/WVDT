@@ -7,6 +7,9 @@ class SiteController extends Controller {
      * when an action is not explicitly requested by users.
      */
     public function actionIndex() {
+        if(!Yii::app()->user->isGuest){
+            $this->redirect($this->createAbsoluteUrl('/list/'));
+        }
         $model = new LoginForm;
 
         // if it is ajax validation request
@@ -19,8 +22,9 @@ class SiteController extends Controller {
         if (isset($_POST['LoginForm'])) {
             $model->attributes = $_POST['LoginForm'];
             // validate user input and redirect to the previous page if valid
-            if ($model->validate() && $model->login())
+            if ($model->validate() && $model->login()){
                 $this->redirect($this->createAbsoluteUrl('/list/'));
+            }
         }
         // display the login form
         $this->render('login', array('model' => $model));
