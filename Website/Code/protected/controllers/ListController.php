@@ -10,14 +10,14 @@ class ListController extends Controller {
 
     public function accessRules() {
         return array(
-            array(
-                'deny',
-            ),
-            array(
-                'allow',
-                'actions' => array('index,ajaxGetProducts,ajaxAddProduct,AjaxRemoveProductUser'),
-                'users' => array('@'),
-            ),
+//            array(
+//                'deny',
+//            ),
+//            array(
+//                'allow',
+//                'actions' => array('index,ajaxGetProducts,ajaxAddProduct,AjaxRemoveProductUser'),
+//                'users' => array('@'),
+//            ),
         );
     }
 

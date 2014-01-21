@@ -2,12 +2,6 @@
 
 class APIController extends Controller {
 
-    public function beforeAction($action) {
-        if (isset($_POST['PHPSESSID'])) {
-            $_COOKIE['PHPSESSID'] = $_POST['PHPSESSID'];
-        }
-    }
-
     public function actionLogin() {
         if (!isset($_POST['username']) || !isset($_POST['password'])) {
             
