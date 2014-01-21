@@ -32,6 +32,32 @@ class ListController extends Controller {
         ));
     }
 
+    public function actionAjaxGetProductList() {
+        $criteria = new CDbCriteria();
+        $criteria->compare('user_id', Yii::app()->user->id, true);
+        $products = ProductUser::model()->findAll($criteria);
+        if ($products == null)
+            $products = array();
+        $this->renderPartial('productList', array(
+            'products' => $products,
+                )
+        );
+    }
+
+    public function actionAjaxChangeProductAmount($id, $amount) {
+        $model = ProductUser::model()->findByPk($id);
+        if ($model == null) {
+            throw new CHttpException(500, 'Product not found!');
+        }
+        if ($model->user_id != Yii::app()->user->id) {
+            throw new CHttpException(500, 'Product not found!');
+        }
+        $model->amount = $amount;
+        if (!$model->save()) {
+            throw new CHttpException(500, 'Product amount couln\'t be updated');
+        }
+    }
+
     public function actionAjaxGetProducts($name) {
         $criteria = new CDbCriteria();
         $criteria->compare('name', $name, true);
@@ -55,7 +81,7 @@ class ListController extends Controller {
         $PU->amount_scanned = 0;
         $PU->product_id = $id;
         $PU->user_id = Yii::app()->user->id;
-        if (!$PU->save()){
+        if (!$PU->save()) {
             var_dump($PU->errors);
             //throw new CHttpException(500, "Could not save :(");
         }
