@@ -23,26 +23,21 @@
         </div><!-- /.modal-content -->
     </div><!-- /.modal-dialog -->
 </div><!-- /.modal -->
-<div>
+<div id="product_list">
     <?php
-    foreach ($list as $product) {
-        echo CHtml::openTag('div', array('class' => 'well'));
-        echo CHtml::openTag('div');
-        echo $product->product->name;
-        echo " ";
-        echo $product->product->price;
-        echo CHtml::tag('button', array('class' => 'btn btn-default removeProduct pull-right', 'id' => "remove_product_" . $product->id), "Verwijder");
-        echo CHtml::closeTag('div');
-        echo CHtml::closeTag('div');
-    }
+    $this->renderPartial('productList', array(
+            'products' => $list,
+                )
+        );
     ?>
 </div>
 
 <script type="text/javascript">
     $(document).ready(function() {
-        
+
         setRemoveEvents();
-    
+        setChangeEvents();
+
         $('#search_product').keyup(function() {
             $.ajax({
                 type: "GET",
@@ -50,22 +45,55 @@
                 data: {name: $(this).val()}
             })
                     .done(function(msg) {
-                $("#products").html(msg);
-                setAddEvents();
-            });
+                        $("#products").html(msg);
+                        setAddEvents();
+                    });
         });
+
+
     });
 
     function setAddEvents() {
+
         $(".addProduct").click(function() {
+            var id = $(this).attr('id').replace('add_product_', '');
+
             $.ajax({
                 type: "GET",
                 url: "<?php echo $this->createAbsoluteUrl('/list/AjaxAddProduct'); ?>",
-                data: {id: $(this).attr('id').replace('add_product_', ''), amount: 1}
+                data: {id: id, amount: $('#product_amount_' + id).val()}
             })
                     .done(function(msg) {
-                $("#products").html(msg);
-            });
+                        refreshProductList();
+                    });
+        });
+    }
+
+    function refreshProductList() {
+        $.ajax({
+                type: "GET",
+                url: "<?php echo $this->createAbsoluteUrl('/list/AjaxGetProductList'); ?>"
+            })
+                .done(function(msg) {
+                    $("#product_list").html(msg);
+                    setRemoveEvents();
+                    setChangeEvents();
+                });
+    }
+
+    function setChangeEvents() {
+
+        $(".productAmount").change(function() {
+            var id = $(this).attr('id').replace('product_amount_', '');
+
+            $.ajax({
+                type: "GET",
+                url: "<?php echo $this->createAbsoluteUrl('/list/AjaxChangeProductAmount'); ?>",
+                data: {id: id, amount: $('#product_amount_' + id).val()}
+            })
+                    .done(function(msg) {
+                        refreshProductList();
+                    });
         });
     }
 
@@ -77,8 +105,8 @@
                 data: {id: $(this).attr('id').replace('remove_product_', '')}
             })
                     .done(function(msg) {
-                $("#products").html(msg);
-            });
+                        refreshProductList();
+                    });
         });
     }
 

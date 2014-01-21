@@ -9,3 +9,4 @@
 *.txt
 *.synctex.gz
 *.log
+/nbproject/private/
