@@ -13,7 +13,7 @@
         <title><?php echo CHtml::encode($this->pageTitle); ?></title>
     </head>
     <body>
-        <div class="container" style="width: 650px;">
+        <div class="container" style="max-width: 750px;">
             <?php echo $content; ?>
         </div>
     </body>

@@ -21,21 +21,9 @@ for ($i = 1; $i <= 50; $i++) {
         </tr>
 
     </thead>
+    <tbody>
     <?php
     foreach ($products as $product) {
-//    echo CHtml::openTag('div',array('class'=>'well'));
-//    echo CHtml::openTag('div');
-//    echo $product->name;
-//    echo " &euro; ";
-//    echo $product->price;
-//    echo CHtml::tag('button',array('class'=>'btn btn-default addProduct pull-right','id'=>"add_product_".$product->id),"Voeg Toe");
-//    echo CHtml::openTag('select',array('class' => 'pull-right', 'id' => "product_amount_" . $product->id));
-//    echo $sSelectBox;
-//    echo CHtml::closeTag('select');
-//    echo CHtml::closeTag('div');
-//    echo CHtml::closeTag('div');
-
-        echo CHtml::openTag('tbody');
         echo CHtml::openTag('tr');
         echo CHtml::openTag('td');
         echo $product->name;
@@ -52,8 +40,8 @@ for ($i = 1; $i <= 50; $i++) {
         echo CHtml::tag('button', array('class' => 'btn btn-default addProduct pull-right', 'id' => "add_product_" . $product->id), "Voeg Toe");
         echo CHtml::closeTag('td');
         echo CHtml::closeTag('tr');
-        echo CHtml::closeTag('tbody');
     }
     ?>
+    </tbody>
 
 </table>
