@@ -63,7 +63,8 @@ class User extends CActiveRecord
 		return array(
 			'id' => 'ID',
 			'email' => 'Email',
-			'password' => 'Password',
+			'password' => 'Wachtwoord',
+                        'password_repeat' => 'Wachtwoord herhalen'
 		);
 	}
 
