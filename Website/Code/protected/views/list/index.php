@@ -18,7 +18,10 @@
                 <h4 class="modal-title" id="myModalLabel">Voeg product toe</h4>
             </div>
             <div class="modal-body">
-                <input type="text" id="search_product" />
+                <div class="form-group">
+                    <input class="form-control" placeholder="Zoek product" type="text" id="search_product" />
+                </div>
+                <hr/>
                 <div id="products">
                 </div>
             </div>
@@ -32,13 +35,12 @@
             )
     );
     ?>
-    <div class="overlay">
-        <img src="<?php echo Yii::app()->request->baseUrl; ?>/style/img/pac-man.gif" class="img-load" />
-    </div>
 </div>
 
 <script type="text/javascript">
     $(document).ready(function() {
+
+
         setRemoveEvents();
         setChangeEvents();
 
@@ -64,16 +66,20 @@
         });
 
         $('#search_product').keyup(function() {
+            
+            if($(this).val().length == 0){
+                $("#products").html("");
+                return;
+            }
             $.ajax({
                 type: "GET",
                 url: "<?php echo $this->createAbsoluteUrl('/list/AjaxGetProducts'); ?>",
                 data: {name: $(this).val()},
-                onSend: initOverlay("#products"),
+                onSend: $("#products").html('<div class="row text-center"><img src="<?php echo Yii::app()->request->baseUrl; ?>/style/img/pac-man.gif" /></div>'),
             })
                     .done(function(msg) {
                 $("#products").html(msg);
                 setAddEvents();
-                unsetOverlay("#products");
             });
         });
 
@@ -162,7 +168,7 @@
             top: (overlayedDiv.height() / 2),
             left: (overlayedDiv.width() / 2)
         });
-        $(overlayedId + " > .overlay").show('fast');
+        $(overlayedId + " > .overlay").fadeIn('fast');
     }
 
     function unsetOverlay(overlayedId) {

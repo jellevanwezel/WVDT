@@ -33,6 +33,7 @@ class ListController extends Controller {
     }
 
     public function actionAjaxGetProductList() {
+        sleep(2);
         $criteria = new CDbCriteria();
         $criteria->compare('user_id', Yii::app()->user->id, true);
         $products = ProductUser::model()->findAll($criteria);
