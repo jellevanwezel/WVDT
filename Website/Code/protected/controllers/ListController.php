@@ -72,20 +72,31 @@ class ListController extends Controller {
     }
 
     public function actionAjaxAddProduct($id, $amount) {
-        $model = Product::model()->findByPk($id);
-        if ($model == null) {
+        $productModel = Product::model()->findByPk($id);
+        if ($productModel == null) {
             throw new CHttpException(404, "product not found!");
         }
-        $PU = new ProductUser('create');
-        $PU->amount = $amount;
-        $PU->amount_scanned = 0;
-        $PU->product_id = $id;
-        $PU->user_id = Yii::app()->user->id;
-        if (!$PU->save()) {
-            var_dump($PU->errors);
+        
+        $criteria = new CDbCriteria();
+        $criteria->compare('user_id', Yii::app()->user->id, true);
+        $criteria->compare('product_id', $productModel->id, true);
+        $productUserModel = ProductUser::model()->find($criteria);
+        if ($productUserModel != null) {
+            $productUserModel->amount += $amount;
+        }else {
+        
+            $productUserModel = new ProductUser('create');
+            $productUserModel->amount = $amount;
+            $productUserModel->amount_scanned = 0;
+            $productUserModel->product_id = $id;
+            $productUserModel->user_id = Yii::app()->user->id;
+        }
+        
+        if (!$productUserModel->save()) {
+            var_dump($productUserModel->errors);
             //throw new CHttpException(500, "Could not save :(");
         }
-        echo "$model->name is toegevoegd.";
+        echo "$productModel->name is toegevoegd.";
     }
 
     public function actionAjaxRemoveProduct($id) {
