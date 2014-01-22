@@ -51,6 +51,16 @@ $this->pageTitle = Yii::app()->name . ' - Boodschappenlijst';
         setRemoveEvents();
         setChangeEvents();
 
+        $("#emptyProductList").click(function() {
+            $.ajax({
+                type: "GET",
+                url: "<?php echo $this->createAbsoluteUrl('/list/AjaxRemoveAllProducts'); ?>"
+            })
+                    .done(function(msg) {
+                refreshProductList();
+            });
+        });
+
         $(window).resize(function() {
             $(".overlay").each(function() {
                 $(this).css({
@@ -104,7 +114,7 @@ $this->pageTitle = Yii::app()->name . ' - Boodschappenlijst';
             $.ajax({
                 type: "GET",
                 url: "<?php echo $this->createAbsoluteUrl('/list/AjaxAddProduct'); ?>",
-                data: {id: id, amount: $('#product_amount_' + id).val()},
+                data: {id: id, amount: $('#add_product_amount_' + id).val()},
                 onSend: initOverlay("#products", 1080),
             })
                     .done(function(msg) {
@@ -157,15 +167,6 @@ $this->pageTitle = Yii::app()->name . ' - Boodschappenlijst';
                     .done(function(msg) {
                 refreshProductList();
 
-            });
-        });
-        $("#emptyProductList").click(function() {
-            $.ajax({
-                type: "GET",
-                url: "<?php echo $this->createAbsoluteUrl('/list/AjaxRemoveAllProducts'); ?>"
-            })
-                    .done(function(msg) {
-                refreshProductList();
             });
         });
     }
