@@ -12,12 +12,10 @@ for ($i = 1; $i <= 50; $i++) {
 
     <thead>
         <tr>
-
             <th>Productnaam</th>
             <th>Prijs</th>
             <th>Aantal</th>
             <th></th>
-
         </tr>
 
     </thead>
@@ -55,5 +53,7 @@ for ($i = 1; $i <= 50; $i++) {
         echo CHtml::closeTag('tbody');
     }
     ?>
-
 </table>
+<div class="overlay">
+    <img src="<?php echo Yii::app()->request->baseUrl; ?>/style/img/pac-man.gif" class="img-load" />
+</div>

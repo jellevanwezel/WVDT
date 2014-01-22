@@ -3,24 +3,24 @@
 /* @var $list ProductUser[] */
 $this->pageTitle = Yii::app()->name . ' - Boodschappenlijst';
 ?>
-<h1><?=$this->pageTitle?></h1>
+<h1><?= $this->pageTitle ?></h1>
 <hr/>
 
 <button class="btn btn-primary" data-toggle="modal" data-target="#myModal">
     Voeg product toe!
 </button>
 <button type="button" class="btn btn-primary" id="emptyProductList">Lijst leegmaken</button>
-<a href="<?=$this->createAbsoluteUrl('site/logout')?>" class="btn btn-primary pull-right">Uitloggen</a>
+<a href="<?= $this->createAbsoluteUrl('site/logout') ?>" class="btn btn-primary pull-right">Uitloggen</a>
 
 <!-- Modal -->
 <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
     <div class="modal-dialog">
-        <div class="modal-content">
+        <div class="modal-content" >
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                 <h4 class="modal-title" id="myModalLabel">Voeg product toe</h4>
             </div>
-            <div class="modal-body">
+            <div class="modal-body" id="model-content">
                 <div class="form-group">
                     <input class="form-control" placeholder="Zoek product" type="text" id="search_product" />
                 </div>
@@ -69,8 +69,8 @@ $this->pageTitle = Yii::app()->name . ' - Boodschappenlijst';
         });
 
         $('#search_product').keyup(function() {
-            
-            if($(this).val().length == 0){
+
+            if ($(this).val().length == 0) {
                 $("#products").html("");
                 return;
             }
@@ -90,17 +90,18 @@ $this->pageTitle = Yii::app()->name . ' - Boodschappenlijst';
     });
 
     function setAddEvents() {
-
         $(".addProduct").click(function() {
             var id = $(this).attr('id').replace('add_product_', '');
 
             $.ajax({
                 type: "GET",
                 url: "<?php echo $this->createAbsoluteUrl('/list/AjaxAddProduct'); ?>",
-                data: {id: id, amount: $('#product_amount_' + id).val()}
+                data: {id: id, amount: $('#product_amount_' + id).val()},
+                onSend: initOverlay("#products",1080),
             })
                     .done(function(msg) {
                 refreshProductList();
+                unsetOverlay("#products");
             });
         });
     }
@@ -109,7 +110,7 @@ $this->pageTitle = Yii::app()->name . ' - Boodschappenlijst';
         $.ajax({
             type: "GET",
             url: "<?php echo $this->createAbsoluteUrl('/list/AjaxGetProductList'); ?>",
-            onSend: initOverlay("#product_list"),
+            onSend: initOverlay("#product_list",10),
         })
                 .done(function(msg) {
             $("#product_list").html(msg);
@@ -158,14 +159,16 @@ $this->pageTitle = Yii::app()->name . ' - Boodschappenlijst';
         });
     }
 
-    function initOverlay(overlayedId) {
-        var overlayedDiv = $(overlayedId);
+    function initOverlay(overlayedId, zindex) {
+        var overlayedDiv = $(overlayedId);        
         $(overlayedId + " > .overlay").css({
+            zindex: zindex,
             opacity: 0.6,
-            left: overlayedDiv.offset().left,
-            top: overlayedDiv.offset().top,
+            left: overlayedDiv.position().left,
+            top: overlayedDiv.position().top,
             width: overlayedDiv.outerWidth(),
-            height: overlayedDiv.outerHeight()
+            height: overlayedDiv.outerHeight(),
+            
         });
         $(overlayedId + " > .overlay > img").css({
             top: (overlayedDiv.height() / 2),
