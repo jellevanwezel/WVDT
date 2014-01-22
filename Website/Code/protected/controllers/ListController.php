@@ -10,14 +10,10 @@ class ListController extends Controller {
 
     public function accessRules() {
         return array(
-//            array(
-//                'deny',
-//            ),
-//            array(
-//                'allow',
-//                'actions' => array('index,ajaxGetProducts,ajaxAddProduct,AjaxRemoveProductUser'),
-//                'users' => array('@'),
-//            ),
+            array('allow', // allow authenticated users to access all actions
+                'users' => array('@'),
+            ),
+            array('deny'),
         );
     }
 
@@ -33,7 +29,6 @@ class ListController extends Controller {
     }
 
     public function actionAjaxGetProductList() {
-        sleep(2);
         $criteria = new CDbCriteria();
         $criteria->compare('user_id', Yii::app()->user->id, true);
         $products = ProductUser::model()->findAll($criteria);
@@ -77,22 +72,22 @@ class ListController extends Controller {
         if ($productModel == null) {
             throw new CHttpException(404, "product not found!");
         }
-        
+
         $criteria = new CDbCriteria();
         $criteria->compare('user_id', Yii::app()->user->id, true);
         $criteria->compare('product_id', $productModel->id, true);
         $productUserModel = ProductUser::model()->find($criteria);
         if ($productUserModel != null) {
             $productUserModel->amount += $amount;
-        }else {
-        
+        } else {
+
             $productUserModel = new ProductUser('create');
             $productUserModel->amount = $amount;
             $productUserModel->amount_scanned = 0;
             $productUserModel->product_id = $id;
             $productUserModel->user_id = Yii::app()->user->id;
         }
-        
+
         if (!$productUserModel->save()) {
             var_dump($productUserModel->errors);
             //throw new CHttpException(500, "Could not save :(");
@@ -107,7 +102,7 @@ class ListController extends Controller {
         }
         $PU->delete();
     }
-    
+
     public function actionAjaxRemoveAllProducts() {
         $criteria = new CDbCriteria();
         $criteria->compare('user_id', Yii::app()->user->id, true);
@@ -116,6 +111,6 @@ class ListController extends Controller {
             throw new CHttpException(404, "Product list is already empty!");
         }
         $PU->deleteAll();
-    }    
+    }
 
 }
