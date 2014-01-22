@@ -12,26 +12,28 @@ $form = $this->beginWidget('CActiveForm', array(
     'enableAjaxValidation' => false,
         ));
 ?>
-
+<hr/>
 <?php echo $form->errorSummary($model); ?>
 
 <div class="form-group">
     <?php echo $form->labelEx($model, 'email'); ?>
-    <?php echo $form->textField($model, 'email', array('class' => "form-control")); ?>
+    <?php echo $form->textField($model, 'email', array('class' => "form-control", 'style'=>'width: 250px;')); ?>
     <?php echo $form->error($model, 'email'); ?>
 </div>
 
 <div class="form-group">
     <?php echo $form->labelEx($model, 'password'); ?>
-    <?php echo $form->passwordField($model, 'password', array('class' => "form-control")); ?>
+    <?php echo $form->passwordField($model, 'password', array('class' => "form-control", 'style'=>'width: 250px;')); ?>
     <?php echo $form->error($model, 'password'); ?>
 </div>
 
 <div class="form-group">
     <?php echo $form->labelEx($model, 'password_repeat'); ?>
-    <?php echo $form->passwordField($model, 'password_repeat', array('class' => "form-control")); ?>
+    <?php echo $form->passwordField($model, 'password_repeat', array('class' => "form-control", 'style'=>'width: 250px;')); ?>
     <?php echo $form->error($model, 'password'); ?>
 </div>
-<?php echo CHtml::submitButton('Versuur', array('class' => "btn btn-default")); ?>
+<hr/>
+<?php echo CHtml::submitButton('Registreren', array('class' => "btn btn-default")); ?>
+<?php echo CHtml::link('Inloggen', $this->createAbsoluteUrl('site/index'), array('class'=>"btn btn-default")); ?>
 
 <?php $this->endWidget(); ?>

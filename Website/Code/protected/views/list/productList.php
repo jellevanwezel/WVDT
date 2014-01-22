@@ -22,7 +22,6 @@ $iTotalAmount = 0;
     <thead>
         <tr>
         
-            <th>Product#</th>
             <th>Productnaam</th>
             <th>Prijs</th>
             <th>Aantal</th>
@@ -37,9 +36,6 @@ $iTotalAmount = 0;
 foreach ($products as $productUser) {
     echo CHtml::openTag('tbody');
         echo CHtml::openTag('tr');
-            echo CHtml::openTag('td');
-             echo $productUser->product_id;
-            echo CHtml::closeTag('td');
             echo CHtml::openTag('td');
              echo $productUser->product->name;
             echo CHtml::closeTag('td');
@@ -71,7 +67,6 @@ foreach ($products as $productUser) {
         <tr>
         
             <td class=""><strong>Totaal</strong></td>
-            <td></td>
             <td><strong>&euro; <?=number_format($fPrice, 2, '.', '')?></strong></td>
             <td><strong><?=$iTotalAmount?></strong></td>
             <td><strong>&euro; <?=number_format($fTotalPrice, 2, '.', '')?></strong></td>

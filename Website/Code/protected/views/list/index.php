@@ -1,13 +1,16 @@
 <?php
 /* @var $this ListController */
 /* @var $list ProductUser[] */
+$this->pageTitle = Yii::app()->name . ' - Boodschappenlijst';
 ?>
-<h1>Supermarktketen - Boodschappenlijst</h1>
+<h1><?=$this->pageTitle?></h1>
+<hr/>
+
 <button class="btn btn-primary" data-toggle="modal" data-target="#myModal">
     Voeg product toe!
 </button>
 <button type="button" class="btn btn-primary" id="emptyProductList">Lijst leegmaken</button>
-<button type="button" class="btn btn-primary pull-right" onclick="javascript: logout();">Uitloggen</button>
+<a href="<?=$this->createAbsoluteUrl('site/logout')?>" class="btn btn-primary pull-right">Uitloggen</a>
 
 <!-- Modal -->
 <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
@@ -167,10 +170,6 @@
 
     function unsetOverlay(overlayedId) {
         $(overlayedId + " > .overlay").fadeOut('fast');
-    }
-
-    function logout() {
-        location.href = 'site/logout';
     }
 
 </script>
