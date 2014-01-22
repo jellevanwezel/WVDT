@@ -30,7 +30,7 @@ for ($i = 1; $i <= 50; $i++) {
             echo "&euro; " . number_format($product->price, 2, '.', '');
             echo CHtml::closeTag('td');
             echo CHtml::openTag('td'); //'style' => 'margin-right: 5px; width: 80px;', 
-            echo CHtml::openTag('select', array('class' => 'productAmount form-control', 'id' => "add_product_amount_" . $product->id));
+            echo CHtml::openTag('select', array('class' => 'form-control', 'id' => "add_product_amount_" . $product->id));
             echo $sSelectBox;
             echo CHtml::closeTag('select');
             echo CHtml::closeTag('td');
