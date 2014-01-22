@@ -26,28 +26,53 @@
 <div id="product_list">
     <?php
     $this->renderPartial('productList', array(
-            'products' => $list,
-                )
-        );
+        'products' => $list,
+            )
+    );
     ?>
+    <div class="overlay">
+        <img src="<?php echo Yii::app()->request->baseUrl; ?>/style/img/pac-man.gif" class="img-load" />
+    </div>
 </div>
 
 <script type="text/javascript">
     $(document).ready(function() {
-
         setRemoveEvents();
         setChangeEvents();
+
+        $(window).resize(function() {
+            $(".overlay").each(function() {
+                $(this).css({
+                    left: $(this).parent().offset().left,
+                    top: $(this).parent().offset().top,
+                    width: $(this).parent().outerWidth(),
+                    height: $(this).parent().outerHeight()
+                }
+                );
+            })
+            $(".overlay > img").each(function() {
+                $(this).css({
+                    top: ($(this).parent().parent().height() / 2),
+                    left: ($(this).parent().parent().width() / 2)
+
+                }
+                );
+            })
+
+        });
 
         $('#search_product').keyup(function() {
             $.ajax({
                 type: "GET",
                 url: "<?php echo $this->createAbsoluteUrl('/list/AjaxGetProducts'); ?>",
-                data: {name: $(this).val()}
+                data: {name: $(this).val()},
+                onSend: initOverlay("#products"),
             })
                     .done(function(msg) {
-                        $("#products").html(msg);
-                        setAddEvents();
-                    });
+                $("#products").html(msg);
+                setAddEvents();
+                unsetOverlay("#products");
+            });
         });
 
 
@@ -64,21 +89,23 @@
                 data: {id: id, amount: $('#product_amount_' + id).val()}
             })
                     .done(function(msg) {
-                        refreshProductList();
-                    });
+                refreshProductList();
+            });
         });
     }
 
     function refreshProductList() {
         $.ajax({
-                type: "GET",
-                url: "<?php echo $this->createAbsoluteUrl('/list/AjaxGetProductList'); ?>"
-            })
+            type: "GET",
+            url: "<?php echo $this->createAbsoluteUrl('/list/AjaxGetProductList'); ?>",
+            onSend: initOverlay("#product_list"),
+        })
                 .done(function(msg) {
-                    $("#product_list").html(msg);
-                    setRemoveEvents();
-                    setChangeEvents();
-                });
+            $("#product_list").html(msg);
+            setRemoveEvents();
+            setChangeEvents();
+            unsetOverlay("#product_list");
+        });
     }
 
     function setChangeEvents() {
@@ -89,11 +116,11 @@
             $.ajax({
                 type: "GET",
                 url: "<?php echo $this->createAbsoluteUrl('/list/AjaxChangeProductAmount'); ?>",
-                data: {id: id, amount: $('#product_amount_' + id).val()} 
+                data: {id: id, amount: $('#product_amount_' + id).val()}
             })
                     .done(function(msg) {
-                        refreshProductList();
-                    });
+                refreshProductList();
+            });
         });
     }
 
@@ -105,9 +132,29 @@
                 data: {id: $(this).attr('id').replace('remove_product_', '')}
             })
                     .done(function(msg) {
-                        refreshProductList();
-                    });
+                refreshProductList();
+            });
         });
+    }
+
+    function initOverlay(overlayedId) {
+        var overlayedDiv = $(overlayedId);
+        $(overlayedId + " > .overlay").css({
+            opacity: 0.6,
+            left: overlayedDiv.offset().left,
+            top: overlayedDiv.offset().top,
+            width: overlayedDiv.outerWidth(),
+            height: overlayedDiv.outerHeight()
+        });
+        $(overlayedId + " > .overlay > img").css({
+            top: (overlayedDiv.height() / 2),
+            left: (overlayedDiv.width() / 2)
+        });
+        $(overlayedId + " > .overlay").show('fast');
+    }
+
+    function unsetOverlay(overlayedId) {
+        $(overlayedId + " > .overlay").fadeOut('fast');
     }
 
 </script>
