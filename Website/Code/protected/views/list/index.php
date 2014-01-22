@@ -2,10 +2,12 @@
 /* @var $this ListController */
 /* @var $list ProductUser[] */
 ?>
-<h1>Product listje</h1>
-<button class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal">
+<h1>Supermarktketen - Boodschappenlijst</h1>
+<button class="btn btn-primary" data-toggle="modal" data-target="#myModal">
     Voeg product toe!
 </button>
+<button type="button" class="btn btn-primary" id="emptyProductList">Lijst leegmaken</button>
+<button type="button" class="btn btn-primary pull-right" onclick="javascript: logout();">Uitloggen</button>
 
 <!-- Modal -->
 <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
@@ -23,7 +25,7 @@
         </div><!-- /.modal-content -->
     </div><!-- /.modal-dialog -->
 </div><!-- /.modal -->
-<div id="product_list">
+<div style="margin-top: 5px;" id="product_list">
     <?php
     $this->renderPartial('productList', array(
         'products' => $list,
@@ -133,6 +135,16 @@
             })
                     .done(function(msg) {
                 refreshProductList();
+
+            });
+        });
+        $("#emptyProductList").click(function() {
+            $.ajax({
+                type: "GET",
+                url: "<?php echo $this->createAbsoluteUrl('/list/AjaxRemoveAllProducts'); ?>"
+            })
+                    .done(function(msg) {
+                refreshProductList();
             });
         });
     }
@@ -155,6 +167,10 @@
 
     function unsetOverlay(overlayedId) {
         $(overlayedId + " > .overlay").fadeOut('fast');
+    }
+
+    function logout() {
+        location.href = 'site/logout';
     }
 
 </script>
