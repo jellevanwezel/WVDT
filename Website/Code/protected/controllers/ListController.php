@@ -106,5 +106,15 @@ class ListController extends Controller {
         }
         $PU->delete();
     }
+    
+    public function actionAjaxRemoveAllProducts() {
+        $criteria = new CDbCriteria();
+        $criteria->compare('user_id', Yii::app()->user->id, true);
+        $PU = ProductUser::model()->find($criteria);
+        if ($PU == null) {
+            throw new CHttpException(404, "Product list is already empty!");
+        }
+        $PU->deleteAll();
+    }    
 
 }
