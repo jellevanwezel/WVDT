@@ -60,7 +60,7 @@ class UserController extends Controller {
             if ($model->validate()) {
                 $model->password = CPasswordHelper::hashPassword($model->password);
                 if ($model->save(false)){
-                    $this->redirect(array('view', 'id' => $model->id));
+                    $this->redirect(array('/list/index', 'id' => $model->id));
                 }
             }
             $model->password = $oldPassword;

@@ -45,7 +45,9 @@ $form = $this->beginWidget('CActiveForm', array(
     <?php echo $form->error($model, 'password'); ?>
 </div>
 <hr/>
+
 <?php echo CHtml::link('Terug', 'javascript: history.go(-1); returnFalse;', array('class'=>"btn btn-default")); ?>
 <?php echo CHtml::submitButton($model->isNewRecord ? 'Registreren' : 'Opslaan', array('class' => "btn btn-default")); ?>
+
 
 <?php $this->endWidget(); ?>

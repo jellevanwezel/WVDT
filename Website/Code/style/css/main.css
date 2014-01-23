@@ -1,12 +1,23 @@
 
 .overlay { 
-  position:absolute;
-  right: 0;
-  display:none;
-  background:#fff; 
+    position:absolute;
+    right: 0;
+    display:none;
+    background:#fff; 
 }
 
 .overlay .img-load { 
-  position:absolute;
-  z-index: 12;
+    position:absolute;
+    z-index: 12;
+}
+
+body{
+    background-image:url('../img/bg.png');
+    background-repeat:repeat;
+}
+
+.container{
+    background-color: white;
+    height: 100%;
+    margin-top: 20px;
 }
