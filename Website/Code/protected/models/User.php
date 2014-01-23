@@ -39,6 +39,7 @@ class User extends CActiveRecord
 			array('email', 'email'),
 			array('password', 'length', 'max'=>128),
                         array('password','compare','compareAttribute'=>'password_repeat','strict'=>true),
+                        array('password, password_repeat', 'length', 'allowEmpty' => true, 'on' => 'update'),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
 			array('id, email, password', 'safe', 'on'=>'search'),

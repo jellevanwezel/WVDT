@@ -17,6 +17,8 @@ $this->pageTitle = Yii::app()->name . ' - Boodschappenlijst';
   </button>
   <ul class="dropdown-menu" role="menu">
     <li><a href="<?= $this->createAbsoluteUrl('user/update', array('id' => Yii::app()->user->id)) ?>">Account wijzigen</a></li>
+    <li><a href="<?= $this->createAbsoluteUrl('user/password', array('id' => Yii::app()->user->id)) ?>">Wachtwoord wijzigen</a></li>
+    <li class="divider"></li>
     <li><a href="<?= $this->createAbsoluteUrl('site/logout') ?>">Uitloggen</a></li>
   </ul>
 </div>
