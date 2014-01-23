@@ -10,10 +10,14 @@ class APIController extends Controller {
             $model->username = $_GET['username'];
             if ($model->validate() && $model->login()) {
                 $message['status'] = 'success';
-                $message['sessionid'] = Yii::app()->session->id;
+                $message['sessionid'] = Yii::app()->session->getSessionID();
             }
         }
-        $this->render('message', array('message' => json_encode($message)));
+        $this->renderPartial('message', array('message' => json_encode($message)));
+    }
+
+    public function actiontest() {
+        throw new JException("hi");
     }
 
 }
