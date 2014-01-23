@@ -54,17 +54,17 @@ class UserController extends Controller {
      */
     public function actionCreate() {
         $model = new User;
-
-        // Uncomment the following line if AJAX validation is needed
-        // $this->performAjaxValidation($model);
-
         if (isset($_POST['User'])) {
             $model->attributes = $_POST['User'];
-            $model->password = CPasswordHelper::hashPassword($model->password);
-            if ($model->save())
-                $this->redirect(array('view', 'id' => $model->id));
+            $oldPassword = $model->password;
+            if ($model->validate()) {
+                $model->password = CPasswordHelper::hashPassword($model->password);
+                if ($model->save(false)){
+                    $this->redirect(array('view', 'id' => $model->id));
+                }
+            }
+            $model->password = $oldPassword;
         }
-
         $this->render('create', array(
             'model' => $model,
         ));

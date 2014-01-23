@@ -15,12 +15,12 @@ $this->pageTitle = Yii::app()->name . ' - Boodschappenlijst';
 <!-- Modal -->
 <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
     <div class="modal-dialog">
-        <div class="modal-content">
+        <div class="modal-content" >
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                 <h4 class="modal-title" id="myModalLabel">Voeg product toe</h4>
             </div>
-            <div class="modal-body">
+            <div class="modal-body" id="model-content">
                 <div class="form-group">
                     <input class="form-control" placeholder="Zoek product" type="text" id="search_product" />
                 </div>
@@ -51,6 +51,16 @@ $this->pageTitle = Yii::app()->name . ' - Boodschappenlijst';
         setRemoveEvents();
         setChangeEvents();
 
+        $("#emptyProductList").click(function() {
+            $.ajax({
+                type: "GET",
+                url: "<?php echo $this->createAbsoluteUrl('/list/AjaxRemoveAllProducts'); ?>"
+            })
+                    .done(function(msg) {
+                refreshProductList();
+            });
+        });
+
         $(window).resize(function() {
             $(".overlay").each(function() {
                 $(this).css({
@@ -71,7 +81,7 @@ $this->pageTitle = Yii::app()->name . ' - Boodschappenlijst';
             })
 
         });
-        
+
         $('#alertClose').click(function() {
             $('#alert').fadeOut();
         });
@@ -89,29 +99,31 @@ $this->pageTitle = Yii::app()->name . ' - Boodschappenlijst';
                 onSend: $("#products").html('<div class="row text-center"><img src="<?php echo Yii::app()->request->baseUrl; ?>/style/img/pac-man.gif" /></div>'),
             })
                     .done(function(msg) {
-                        $("#products").html(msg);
-                        setAddEvents();
-                    });
+                $("#products").html(msg);
+                setAddEvents();
+            });
         });
 
 
     });
 
     function setAddEvents() {
-
         $(".addProduct").click(function() {
             var id = $(this).attr('id').replace('add_product_', '');
             $('#alert').fadeOut();
             $.ajax({
                 type: "GET",
                 url: "<?php echo $this->createAbsoluteUrl('/list/AjaxAddProduct'); ?>",
-                data: {id: id, amount: $('#product_amount_' + id).val()}
+                data: {id: id, amount: $('#add_product_amount_' + id).val()},
+                onSend: initOverlay("#products", 1080),
             })
                     .done(function(msg) {
-                        $("#alert").fadeIn();
-                        refreshProductList();
-                        
-                    });
+                refreshProductList();
+                unsetOverlay("#products");
+                $("#alert").fadeIn();
+            });
+
+
         });
     }
 
@@ -119,14 +131,14 @@ $this->pageTitle = Yii::app()->name . ' - Boodschappenlijst';
         $.ajax({
             type: "GET",
             url: "<?php echo $this->createAbsoluteUrl('/list/AjaxGetProductList'); ?>",
-            onSend: initOverlay("#product_list"),
+            onSend: initOverlay("#product_list", 10),
         })
                 .done(function(msg) {
-                    $("#product_list").html(msg);
-                    setRemoveEvents();
-                    setChangeEvents();
-                    unsetOverlay("#product_list");
-                });
+            $("#product_list").html(msg);
+            setRemoveEvents();
+            setChangeEvents();
+            unsetOverlay("#product_list");
+        });
     }
 
     function setChangeEvents() {
@@ -140,8 +152,8 @@ $this->pageTitle = Yii::app()->name . ' - Boodschappenlijst';
                 data: {id: id, amount: $('#product_amount_' + id).val()}
             })
                     .done(function(msg) {
-                        refreshProductList();
-                    });
+                refreshProductList();
+            });
         });
     }
 
@@ -153,29 +165,21 @@ $this->pageTitle = Yii::app()->name . ' - Boodschappenlijst';
                 data: {id: $(this).attr('id').replace('remove_product_', '')}
             })
                     .done(function(msg) {
-                        refreshProductList();
+                refreshProductList();
 
-                    });
-        });
-        $("#emptyProductList").click(function() {
-            $.ajax({
-                type: "GET",
-                url: "<?php echo $this->createAbsoluteUrl('/list/AjaxRemoveAllProducts'); ?>"
-            })
-                    .done(function(msg) {
-                        refreshProductList();
-                    });
+            });
         });
     }
 
-    function initOverlay(overlayedId) {
+    function initOverlay(overlayedId, zindex) {
         var overlayedDiv = $(overlayedId);
         $(overlayedId + " > .overlay").css({
+            zindex: zindex,
             opacity: 0.6,
-            left: overlayedDiv.offset().left,
-            top: overlayedDiv.offset().top,
+            left: overlayedDiv.position().left,
+            top: overlayedDiv.position().top,
             width: overlayedDiv.outerWidth(),
-            height: overlayedDiv.outerHeight()
+            height: overlayedDiv.outerHeight(),
         });
         $(overlayedId + " > .overlay > img").css({
             top: (overlayedDiv.height() / 2),
