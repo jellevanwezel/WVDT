@@ -8,6 +8,7 @@ for ($i = 1; $i <= 50; $i++) {
     $sSelectBox .= CHtml::closeTag('option');
 }
 ?>
+
 <table class="table table-striped">
 
     <thead>
