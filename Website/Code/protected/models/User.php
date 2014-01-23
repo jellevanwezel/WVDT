@@ -7,6 +7,8 @@
  * @property integer $id
  * @property string $email
  * @property string $password
+ * @property string $first_name
+ * @property string $last_name
  *
  * The followings are the available model relations:
  * @property Payment[] $payments
@@ -33,7 +35,7 @@ class User extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('email, password, password_repeat', 'required'),
+			array('email, password, password_repeat, first_name, last_name', 'required'),
 			array('email', 'email'),
 			array('password', 'length', 'max'=>128),
                         array('password','compare','compareAttribute'=>'password_repeat','strict'=>true),
@@ -65,7 +67,9 @@ class User extends CActiveRecord
 			'id' => 'ID',
 			'email' => 'Email',
 			'password' => 'Wachtwoord',
-                        'password_repeat' => 'Wachtwoord herhalen'
+                        'password_repeat' => 'Wachtwoord herhalen',
+                        'first_name' => 'Voornaam',
+                        'last_name' => 'Achternaam'
 		);
 	}
 

@@ -5,6 +5,9 @@ $this->pageTitle = Yii::app()->name . ' - Boodschappenlijst';
 ?>
 <h1><?= $this->pageTitle ?></h1>
 <hr/>
+<strong>Welkom <?=Yii::app()->user->first_name?>!</strong>
+
+<br /><br />
 
 <button class="btn btn-primary" data-toggle="modal" data-target="#myModal">
     Voeg product toe

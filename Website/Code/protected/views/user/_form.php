@@ -16,6 +16,18 @@ $form = $this->beginWidget('CActiveForm', array(
 <?php echo $form->errorSummary($model); ?>
 
 <div class="form-group">
+    <?php echo $form->labelEx($model, 'first_name'); ?>
+    <?php echo $form->textField($model, 'first_name', array('class' => "form-control", 'style'=>'width: 250px;')); ?>
+    <?php echo $form->error($model, 'first_name'); ?>
+</div>
+
+<div class="form-group">
+    <?php echo $form->labelEx($model, 'last_name'); ?>
+    <?php echo $form->textField($model, 'last_name', array('class' => "form-control", 'style'=>'width: 250px;')); ?>
+    <?php echo $form->error($model, 'last_name'); ?>
+</div>
+
+<div class="form-group">
     <?php echo $form->labelEx($model, 'email'); ?>
     <?php echo $form->textField($model, 'email', array('class' => "form-control", 'style'=>'width: 250px;')); ?>
     <?php echo $form->error($model, 'email'); ?>
