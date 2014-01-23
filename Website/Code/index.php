@@ -1,8 +1,8 @@
 <?php
 
-if (isset($_POST['sessionId']))
+if (isset($_GET['sessionId']))
 {
-   $_COOKIE['PHPSESSID'] = $_POST['sessionId'];
+   $_COOKIE['PHPSESSID'] = $_GET['sessionId'];
 }
 
 // change the following paths if necessary
