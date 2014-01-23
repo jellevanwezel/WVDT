@@ -52,8 +52,8 @@ if ($model->isNewRecord) {
 ?>
 <hr/>
 
-<?php echo CHtml::link('Terug', $model->isNewRecord ? array('site/login') : array('list/index'), array('class'=>"btn btn-default")); ?>
-<?php echo CHtml::submitButton($model->isNewRecord ? 'Registreren' : 'Opslaan', array('class' => "btn btn-default")); ?>
+<?php echo CHtml::link('Terug', $model->isNewRecord ? array('site/login') : array('list/index'), array('class'=>"btn btn-primary")); ?>
+<?php echo CHtml::submitButton($model->isNewRecord ? 'Registreren' : 'Opslaan', array('class' => "btn btn-primary")); ?>
 
 
 <?php $this->endWidget(); ?>
