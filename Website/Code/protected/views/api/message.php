@@ -1,7 +1,6 @@
 <?php
+/* @var $message string */
 
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
+echo $message;
+
 ?>
