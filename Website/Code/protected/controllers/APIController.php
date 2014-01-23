@@ -1,9 +1,8 @@
 <?php
 
-//jorian chill
-
 class APIController extends Controller {
 
+    
     public function actionLogin() {
         if (!isset($_POST['username']) || !isset($_POST['password'])) {
             
@@ -14,8 +13,7 @@ class APIController extends Controller {
         if ($model->validate() && $model->login()) {
             
         }
-
-        $this->render('index');
+        $this->render('message');
     }
 
 }
