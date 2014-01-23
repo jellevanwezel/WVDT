@@ -1,5 +1,4 @@
 <?php
-
 if (isset($_GET['sessionId']))
 {
    $_COOKIE['PHPSESSID'] = $_GET['sessionId'];
