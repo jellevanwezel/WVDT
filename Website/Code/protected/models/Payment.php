@@ -6,9 +6,9 @@
  * The followings are the available columns in table 'tbl_payment':
  * @property integer $id
  * @property integer $user_id
- * @property integer $payed
+ * @property integer $paid
  * @property string $created_at
- * @property string $payed_at
+ * @property string $paid_at
  *
  * The followings are the available model relations:
  * @property User $user
@@ -33,11 +33,11 @@ class Payment extends CActiveRecord
 		// will receive user inputs.
 		return array(
 			array('user_id, created_at', 'required'),
-			array('user_id, payed', 'numerical', 'integerOnly'=>true),
-			array('payed_at', 'safe'),
+			array('user_id, paid', 'numerical', 'integerOnly'=>true),
+			array('paid_at', 'safe'),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
-			array('id, user_id, payed, created_at, payed_at', 'safe', 'on'=>'search'),
+			array('id, user_id, paid, created_at, paid_at', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -62,9 +62,9 @@ class Payment extends CActiveRecord
 		return array(
 			'id' => 'ID',
 			'user_id' => 'User',
-			'payed' => 'Payed',
+			'paid' => 'paid',
 			'created_at' => 'Created At',
-			'payed_at' => 'Payed At',
+			'paid_at' => 'paid At',
 		);
 	}
 
@@ -88,9 +88,9 @@ class Payment extends CActiveRecord
 
 		$criteria->compare('id',$this->id);
 		$criteria->compare('user_id',$this->user_id);
-		$criteria->compare('payed',$this->payed);
+		$criteria->compare('paid',$this->paid);
 		$criteria->compare('created_at',$this->created_at,true);
-		$criteria->compare('payed_at',$this->payed_at,true);
+		$criteria->compare('paid_at',$this->paid_at,true);
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,
