@@ -84,7 +84,7 @@ class UserController extends Controller {
         if (isset($_POST['User'])) {
             $model->attributes = $_POST['User'];
             if ($model->save())
-                $this->redirect(array('view', 'id' => $model->id));
+                $this->redirect(array('list/index'));
         }
 
         $this->render('update', array(
