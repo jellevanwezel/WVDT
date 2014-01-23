@@ -61,6 +61,7 @@ class APIController extends Controller {
         }
 
         $this->renderPartial('message', array('message' => json_encode($message)));
+
     }
 
 }
