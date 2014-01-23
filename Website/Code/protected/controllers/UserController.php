@@ -95,13 +95,11 @@ class UserController extends Controller {
             $model->attributes = $_POST['User'];
             $model->password_old = $_POST['User']['password_old'];
             $new_password = $model->password;
-            var_dump(array('password_invoer'=> CPasswordHelper::hashPassword($model->password_old),'password_db' => $oldPassword));
-            $passwordCheck = CPasswordHelper::verifyPassword($oldPassword,$model->password_old);
-            var_dump($passwordCheck);
+            $passwordCheck = CPasswordHelper::verifyPassword($model->password_old,$oldPassword);
             if(!$passwordCheck){
                 $model->addError('password_old', 'Wachtwoord incorrect.');
             }
-            if ($model->validate() && $passwordCheck) {
+            if ($model->validate(array('password','password_repeat')) && $passwordCheck) {
                 $model->password = CPasswordHelper::hashPassword($model->password);
                 if ($model->save(false, array('password')))
                     $this->redirect(array('list/index'));
