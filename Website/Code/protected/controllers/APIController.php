@@ -72,7 +72,7 @@ class APIController extends Controller {
         $this->renderPartial('message', array('message' => json_encode($message)));
     }
 
-    //TODO: Refactor!
+    //TODO: Refactor
     public function actionPay() {
         if (Yii::app()->user->isGuest) {
             throw new JException('No session found.');
