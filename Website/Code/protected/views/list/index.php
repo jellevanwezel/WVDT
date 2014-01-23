@@ -5,15 +5,23 @@ $this->pageTitle = Yii::app()->name . ' - Boodschappenlijst';
 ?>
 <h1><?= $this->pageTitle ?></h1>
 <hr/>
-<strong>Welkom <?=Yii::app()->user->first_name?>!</strong>
-
-<br /><br />
 
 <button class="btn btn-primary" data-toggle="modal" data-target="#myModal">
     Voeg product toe
 </button>
 <button type="button" class="btn btn-primary" id="emptyProductList">Lijst leegmaken</button>
-<a href="<?= $this->createAbsoluteUrl('site/logout') ?>" class="btn btn-primary pull-right">Uitloggen</a>
+
+<div class="btn-group pull-right">
+  <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
+    <?=Yii::app()->user->first_name?> <span class="caret"></span>
+  </button>
+  <ul class="dropdown-menu" role="menu">
+    <li><a href="<?= $this->createAbsoluteUrl('user/update', array('id' => Yii::app()->user->id)) ?>">Account wijzigen</a></li>
+    <li><a href="<?= $this->createAbsoluteUrl('user/password', array('id' => Yii::app()->user->id)) ?>">Wachtwoord wijzigen</a></li>
+    <li class="divider"></li>
+    <li><a href="<?= $this->createAbsoluteUrl('site/logout') ?>">Uitloggen</a></li>
+  </ul>
+</div>
 
 <!-- Modal -->
 <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">

@@ -33,6 +33,9 @@ $form = $this->beginWidget('CActiveForm', array(
     <?php echo $form->error($model, 'email'); ?>
 </div>
 
+<?php
+if ($model->isNewRecord) {
+?>
 <div class="form-group">
     <?php echo $form->labelEx($model, 'password'); ?>
     <?php echo $form->passwordField($model, 'password', array('class' => "form-control", 'style'=>'width: 250px;')); ?>
@@ -44,8 +47,13 @@ $form = $this->beginWidget('CActiveForm', array(
     <?php echo $form->passwordField($model, 'password_repeat', array('class' => "form-control", 'style'=>'width: 250px;')); ?>
     <?php echo $form->error($model, 'password'); ?>
 </div>
+<?php
+}
+?>
 <hr/>
-<?php echo CHtml::link('Terug', $this->createAbsoluteUrl('site/index'), array('class'=>"btn btn-default")); ?>
-<?php echo CHtml::submitButton('Registreren', array('class' => "btn btn-default")); ?>
+
+<?php echo CHtml::link('Terug', $model->isNewRecord ? array('site/login') : array('list/index'), array('class'=>"btn btn-default")); ?>
+<?php echo CHtml::submitButton($model->isNewRecord ? 'Registreren' : 'Opslaan', array('class' => "btn btn-default")); ?>
+
 
 <?php $this->endWidget(); ?>
