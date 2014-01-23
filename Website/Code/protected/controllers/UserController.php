@@ -23,6 +23,11 @@ class UserController extends Controller {
             array('allow', // allow authenticated users to access all actions
                 'users' => array('@'),
             ),
+            array(
+                'allow',
+                'actions' => array('create'),
+                'users' => array('*'),
+            ),
             array('deny'),
         );
     }
@@ -39,7 +44,12 @@ class UserController extends Controller {
             if ($model->validate()) {
                 $model->password = CPasswordHelper::hashPassword($model->password);
                 if ($model->save(false)) {
-                    $this->redirect(array('/list/index', 'id' => $model->id));
+                    $login = new LoginForm();
+                    $login->username = $model->email;
+                    $login->password = $oldPassword;
+                    if ($login->login())
+                        $this->redirect(array('/list/index'));
+                    throw new CHttpException(500, "Er ging iets mis :(");
                 }
             }
             $model->password = $oldPassword;
@@ -79,15 +89,25 @@ class UserController extends Controller {
      */
     public function actionPassword() {
         $model = $this->loadModel(Yii::app()->user->id);
-        if (isset($_POST['User']) && isset($_POST['User']['password']) && isset($_POST['User']['password_repeat'])) {
+        $oldPassword = $model->password;
+        $model->password = '';
+        if (isset($_POST['User'])) {
             $model->attributes = $_POST['User'];
-            $old_password = $model->password;
-            if ($model->validate()) {
+            $model->password_old = $_POST['User']['password_old'];
+            $new_password = $model->password;
+            var_dump(array('password_invoer'=> CPasswordHelper::hashPassword($model->password_old),'password_db' => $oldPassword));
+            $passwordCheck = CPasswordHelper::verifyPassword($oldPassword,$model->password_old);
+            var_dump($passwordCheck);
+            if(!$passwordCheck){
+                $model->addError('password_old', 'Wachtwoord incorrect.');
+            }
+            if ($model->validate() && $passwordCheck) {
                 $model->password = CPasswordHelper::hashPassword($model->password);
                 if ($model->save(false, array('password')))
                     $this->redirect(array('list/index'));
-                $model->password = $old_password;
+                $model->password = $new_password;
             }
+            $model->password_old = '';
         }
 
         $this->render('updatePassword', array(
@@ -104,7 +124,7 @@ class UserController extends Controller {
         $id = Yii::app()->user->id;
         Yii::app()->user->logout();
         $this->loadModel($id)->delete();
-        $this->redirect('/site/index');
+        $this->redirect(array('/site/index'));
     }
 
     /**

@@ -18,6 +18,7 @@ class User extends CActiveRecord
 {
     
         public $password_repeat;
+        public $password_old;
     
 	/**
 	 * @return string the associated database table name
@@ -37,7 +38,7 @@ class User extends CActiveRecord
 		return array(
 			array('email, password, password_repeat, first_name, last_name', 'required'),
 			array('email', 'email'),
-			array('password', 'length', 'max'=>128),
+			array('password, password_old, password_repeat', 'length', 'max'=>128),
                         array('password','compare','compareAttribute'=>'password_repeat','strict'=>true),
                         array('password, password_repeat', 'length', 'allowEmpty' => true, 'on' => 'update'),
 			// The following rule is used by search().
@@ -67,6 +68,7 @@ class User extends CActiveRecord
 		return array(
 			'id' => 'ID',
 			'email' => 'Email',
+			'password_old' => 'Oude Wachtwoord',
 			'password' => 'Wachtwoord',
                         'password_repeat' => 'Wachtwoord herhalen',
                         'first_name' => 'Voornaam',

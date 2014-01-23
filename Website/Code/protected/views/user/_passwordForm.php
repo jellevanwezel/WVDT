@@ -16,6 +16,12 @@ $form = $this->beginWidget('CActiveForm', array(
 <?php echo $form->errorSummary($model); ?>
 
 <div class="form-group">
+    <?php echo $form->labelEx($model, 'password_old'); ?>
+    <?php echo $form->passwordField($model, 'password_old', array('class' => "form-control", 'style' => 'width: 250px;')); ?>
+    <?php echo $form->error($model, 'password_old'); ?>
+</div>
+
+<div class="form-group">
     <?php echo $form->labelEx($model, 'password'); ?>
     <?php echo $form->passwordField($model, 'password', array('class' => "form-control", 'style' => 'width: 250px;')); ?>
     <?php echo $form->error($model, 'password'); ?>
