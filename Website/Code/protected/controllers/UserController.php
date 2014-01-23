@@ -59,7 +59,7 @@ class UserController extends Controller {
             $oldPassword = $model->password;
             if ($model->validate()) {
                 $model->password = CPasswordHelper::hashPassword($model->password);
-                if ($model->save(false)){
+                if ($model->save(false)) {
                     $this->redirect(array('/list/index', 'id' => $model->id));
                 }
             }
@@ -80,6 +80,25 @@ class UserController extends Controller {
 
         // Uncomment the following line if AJAX validation is needed
         // $this->performAjaxValidation($model);
+
+        if (isset($_POST['User'])) {
+            $model->attributes = $_POST['User'];
+            if ($model->save())
+                $this->redirect(array('view', 'id' => $model->id));
+        }
+
+        $this->render('update', array(
+            'model' => $model,
+        ));
+    }
+
+    /**
+     * Updates a particular model.
+     * If update is successful, the browser will be redirected to the 'view' page.
+     * @param integer $id the ID of the model to be updated
+     */
+    public function actionUpdatePassword($id) {
+        $model = $this->loadModel($id);
 
         if (isset($_POST['User'])) {
             $model->attributes = $_POST['User'];
