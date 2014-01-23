@@ -21,13 +21,13 @@ $form = $this->beginWidget('CActiveForm', array(
 <div class="center-block">
 <div class="form-group">
     <?php echo $form->labelEx($model, 'username'); ?>
-    <?php echo $form->textField($model, 'username',array('class'=>"form-control", 'style'=>'width: 250px;')); ?>
+    <?php echo $form->textField($model, 'username',array('class'=>"form-control",'placeholder'=>$model->getAttributeLabel('username'), 'style'=>'width: 250px;')); ?>
     <?php echo $form->error($model, 'username'); ?>
 </div>
 
 <div class="form-group">
     <?php echo $form->labelEx($model, 'password'); ?>
-    <?php echo $form->passwordField($model, 'password',array('class'=>"form-control", 'style'=>"width: 250px;")); ?>
+    <?php echo $form->passwordField($model, 'password',array('class'=>"form-control",'placeholder'=>$model->getAttributeLabel('password'), 'style'=>"width: 250px;")); ?>
     <?php echo $form->error($model, 'password'); ?>
 </div>
 

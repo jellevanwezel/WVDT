@@ -45,7 +45,7 @@ $form = $this->beginWidget('CActiveForm', array(
     <?php echo $form->error($model, 'password'); ?>
 </div>
 <hr/>
+<?php echo CHtml::link('Terug', $this->createAbsoluteUrl('site/index'), array('class'=>"btn btn-default")); ?>
 <?php echo CHtml::submitButton('Registreren', array('class' => "btn btn-default")); ?>
-<?php echo CHtml::link('Inloggen', $this->createAbsoluteUrl('site/index'), array('class'=>"btn btn-default")); ?>
 
 <?php $this->endWidget(); ?>
