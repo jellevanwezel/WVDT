@@ -12,15 +12,16 @@ $this->pageTitle = Yii::app()->name . ' - Boodschappenlijst';
 <button type="button" class="btn btn-primary" id="emptyProductList">Lijst leegmaken</button>
 
 <div class="btn-group pull-right">
-  <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
-    <?=Yii::app()->user->first_name?> <span class="caret"></span>
-  </button>
-  <ul class="dropdown-menu" role="menu">
-    <li><a href="<?= $this->createAbsoluteUrl('user/update', array('id' => Yii::app()->user->id)) ?>">Account wijzigen</a></li>
-    <li><a href="<?= $this->createAbsoluteUrl('user/password', array('id' => Yii::app()->user->id)) ?>">Wachtwoord wijzigen</a></li>
-    <li class="divider"></li>
-    <li><a href="<?= $this->createAbsoluteUrl('site/logout') ?>">Uitloggen</a></li>
-  </ul>
+    <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
+        <?= Yii::app()->user->first_name ?> <span class="caret"></span>
+    </button>
+    <ul class="dropdown-menu" role="menu">
+        <li><a href="<?= $this->createAbsoluteUrl('user/update') ?>">Account wijzigen</a></li>
+        <li><a href="<?= $this->createAbsoluteUrl('user/password') ?>">Wachtwoord wijzigen</a></li>
+        <li><a href="<?= $this->createAbsoluteUrl('user/delete') ?>" onclick="javascript: return confirmDelete();">Account verwijderen</a></li>
+        <li class="divider"></li>
+        <li><a href="<?= $this->createAbsoluteUrl('site/logout') ?>">Uitloggen</a></li>
+    </ul>
 </div>
 
 <!-- Modal -->
@@ -68,8 +69,8 @@ $this->pageTitle = Yii::app()->name . ' - Boodschappenlijst';
                 url: "<?php echo $this->createAbsoluteUrl('/list/AjaxRemoveAllProducts'); ?>"
             })
                     .done(function(msg) {
-                refreshProductList();
-            });
+                        refreshProductList();
+                    });
         });
 
         $(window).resize(function() {
@@ -110,13 +111,18 @@ $this->pageTitle = Yii::app()->name . ' - Boodschappenlijst';
                 onSend: $("#products").html('<div class="row text-center"><img src="<?php echo Yii::app()->request->baseUrl; ?>/style/img/pac-man.gif" /></div>'),
             })
                     .done(function(msg) {
-                $("#products").html(msg);
-                setAddEvents();
-            });
+                        $("#products").html(msg);
+                        setAddEvents();
+                    });
         });
 
 
     });
+
+    function confirmDelete() {
+    
+        return confirm('Weet u het zeker?');
+    }
 
     function setAddEvents() {
         $(".addProduct").click(function() {
@@ -129,10 +135,10 @@ $this->pageTitle = Yii::app()->name . ' - Boodschappenlijst';
                 onSend: initOverlay("#products", 1080),
             })
                     .done(function(msg) {
-                refreshProductList();
-                unsetOverlay("#products");
-                $("#alert").fadeIn();
-            });
+                        refreshProductList();
+                        unsetOverlay("#products");
+                        $("#alert").fadeIn();
+                    });
 
 
         });
@@ -145,11 +151,11 @@ $this->pageTitle = Yii::app()->name . ' - Boodschappenlijst';
             onSend: initOverlay("#product_list", 10),
         })
                 .done(function(msg) {
-            $("#product_list").html(msg);
-            setRemoveEvents();
-            setChangeEvents();
-            unsetOverlay("#product_list");
-        });
+                    $("#product_list").html(msg);
+                    setRemoveEvents();
+                    setChangeEvents();
+                    unsetOverlay("#product_list");
+                });
     }
 
     function setChangeEvents() {
@@ -163,8 +169,8 @@ $this->pageTitle = Yii::app()->name . ' - Boodschappenlijst';
                 data: {id: id, amount: $('#product_amount_' + id).val()}
             })
                     .done(function(msg) {
-                refreshProductList();
-            });
+                        refreshProductList();
+                    });
         });
     }
 
@@ -176,9 +182,9 @@ $this->pageTitle = Yii::app()->name . ' - Boodschappenlijst';
                 data: {id: $(this).attr('id').replace('remove_product_', '')}
             })
                     .done(function(msg) {
-                refreshProductList();
+                        refreshProductList();
 
-            });
+                    });
         });
     }
 
