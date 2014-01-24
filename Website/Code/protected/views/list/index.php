@@ -7,14 +7,14 @@ $this->pageTitle = Yii::app()->name . ' - Boodschappenlijst';
 <hr/>
 
 <button class="btn btn-primary" data-toggle="modal" data-target="#myModal">
-    <span class="glyphicon glyphicon-plus-sign"></span>
+    <span class="glyphicon glyphicon-plus-sign left-icon"></span>
      Voeg product toe
 </button>
-<button type="button" class="btn btn-primary" id="emptyProductList"><span class="glyphicon glyphicon-trash"></span> Lijst leegmaken</button>
+<button type="button" class="btn btn-primary" id="emptyProductList"><span class="glyphicon glyphicon-trash left-icon"></span> Lijst leegmaken</button>
 
 <div class="btn-group pull-right">
     <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
-        <span class="glyphicon glyphicon-user"></span> <?= Yii::app()->user->first_name ?> <span class="caret"></span>
+        <span class="glyphicon glyphicon-user left-icon"></span> <?= Yii::app()->user->first_name ?> <span class="caret"></span>
     </button>
     <ul class="dropdown-menu" role="menu">
         <li><a href="<?= $this->createAbsoluteUrl('user/update') ?>"><span class="glyphicon glyphicon-pencil"></span> Account wijzigen</a></li>
