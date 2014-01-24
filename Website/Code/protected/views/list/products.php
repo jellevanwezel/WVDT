@@ -36,7 +36,7 @@ for ($i = 1; $i <= 50; $i++) {
             echo CHtml::closeTag('select');
             echo CHtml::closeTag('td');
             echo CHtml::openTag('td');
-            echo CHtml::tag('button', array('class' => 'btn btn-default addProduct pull-right', 'id' => "add_product_" . $product->id), "Voeg Toe");
+            echo CHtml::tag('button', array('class' => 'btn btn-default addProduct pull-right', 'id' => "add_product_" . $product->id), "<span class='glyphicon glyphicon-plus'></span>");
             echo CHtml::closeTag('td');
             echo CHtml::closeTag('tr');
         }

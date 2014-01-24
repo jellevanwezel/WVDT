@@ -7,20 +7,21 @@ $this->pageTitle = Yii::app()->name . ' - Boodschappenlijst';
 <hr/>
 
 <button class="btn btn-primary" data-toggle="modal" data-target="#myModal">
-    Voeg product toe
+    <span class="glyphicon glyphicon-plus-sign"></span>
+     Voeg product toe
 </button>
-<button type="button" class="btn btn-primary" id="emptyProductList">Lijst leegmaken</button>
+<button type="button" class="btn btn-primary" id="emptyProductList"><span class="glyphicon glyphicon-trash"></span> Lijst leegmaken</button>
 
 <div class="btn-group pull-right">
     <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
-        <?= Yii::app()->user->first_name ?> <span class="caret"></span>
+        <span class="glyphicon glyphicon-user"></span> <?= Yii::app()->user->first_name ?> <span class="caret"></span>
     </button>
     <ul class="dropdown-menu" role="menu">
-        <li><a href="<?= $this->createAbsoluteUrl('user/update') ?>">Account wijzigen</a></li>
-        <li><a href="<?= $this->createAbsoluteUrl('user/password') ?>">Wachtwoord wijzigen</a></li>
-        <li><a href="<?= $this->createAbsoluteUrl('user/delete') ?>" onclick="javascript: return confirmDelete();">Account verwijderen</a></li>
+        <li><a href="<?= $this->createAbsoluteUrl('user/update') ?>"><span class="glyphicon glyphicon-pencil"></span> Account wijzigen</a></li>
+        <li><a href="<?= $this->createAbsoluteUrl('user/password') ?>"><span class="glyphicon glyphicon-lock"></span> Wachtwoord wijzigen</a></li>
+        <li><a href="<?= $this->createAbsoluteUrl('user/delete') ?>" onclick="javascript: return confirmDelete();"><span class="glyphicon glyphicon-trash"></span> Account verwijderen</a></li>
         <li class="divider"></li>
-        <li><a href="<?= $this->createAbsoluteUrl('site/logout') ?>">Uitloggen</a></li>
+        <li><a href="<?= $this->createAbsoluteUrl('site/logout') ?>"><span class="glyphicon glyphicon-log-out"></span> Uitloggen</a></li>
     </ul>
 </div>
 

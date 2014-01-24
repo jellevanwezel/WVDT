@@ -48,7 +48,7 @@ $iTotalAmount = 0;
                 echo "&euro; " . number_format($productUser->product->price * $productUser->amount, 2, '.', '');
                 echo CHtml::closeTag('td');
                 echo CHtml::openTag('td');
-                echo CHtml::tag('button', array('class' => 'btn btn-default removeProduct pull-right', 'id' => "remove_product_" . $productUser->id), "Verwijder");
+                echo CHtml::tag('a', array('class' => 'btn removeProduct pull-right', 'id' => "remove_product_" . $productUser->id), "<span class='glyphicon glyphicon-remove'></span>");
                 echo CHtml::closeTag('td');
                 echo CHtml::closeTag('tr');
 
