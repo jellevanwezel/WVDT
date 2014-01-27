@@ -55,15 +55,25 @@ class APIController extends Controller {
         }
         $message = array('status' => 'success');
 
-        if (!isset($_GET['pid']) || !is_numeric($_GET['pid']) || !isset($_GET['amount']) || !is_numeric($_GET['amount'])) {
-            throw new JException('Invalid product id or amount.');
+        if (!isset($_GET['qr'])) {
+            throw new JException('Invalid qr code.');
         }
 
-        $productUser = ProductUser::model()->findByAttributes(array('id' => $_GET['pid']));
-        if ($productUser == null) {
-            throw new JException('Invalid product id.');
+        $product = Product::model()->findByAttributes(array('qr_code' => $_GET['qr']));
+        if ($product == null) {
+            throw new JException('Product not found.');
         }
-        $productUser->amount_scanned = $_GET['amount'];
+        
+        $productUser = ProductUser::model()->findByAttributes(array('user_id' => Yii::app()->user->id, 'product_id' => $product->id));
+        if ($productUser == null) {
+            $productUser = new ProductUser();
+            $productUser->user_id = Yii::app()->user->id;
+            $productUser->product_id = $product->id;
+            $productUser->amount = 0;
+            $productUser->amount_scanned = 1;
+        }else {
+            $productUser->amount_scanned ++;
+        }
 
         if (!$productUser->save()) {
             throw new JException('Failed to update the product.');
