@@ -17,6 +17,7 @@ body{
 }
 
 .container{
+    padding: 20px 50px!important;
     min-height: 500px;
     background-color: white;
     height: 100%;
