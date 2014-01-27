@@ -30,7 +30,7 @@ class APIController extends Controller {
 
         $productList = ProductUser::model()->findAllByAttributes(array('user_id' => Yii::app()->user->id));
         if ($productList == null) {
-            throw new JException('No products found.');
+            throw new JException('List empty');
         }
 
         $products = array();
