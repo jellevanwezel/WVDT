@@ -42,7 +42,7 @@ $this->pageTitle = Yii::app()->name . ' - Boodschappenlijst';
                     <button type="button" id="alertClose" class="close" aria-hidden="true">&times;</button>
                     Product toegevoegd!
                 </div>
-                <div id="products">
+                <div id="products" style="overflow: auto; height: 350px;">
                 </div>
             </div>
         </div><!-- /.modal-content -->

@@ -57,7 +57,7 @@ class ListController extends Controller {
     public function actionAjaxGetProducts($name) {
         $criteria = new CDbCriteria();
         $criteria->compare('name', $name, true);
-        $criteria->limit = 5;
+        //$criteria->limit = 5;
         $products = Product::model()->findAll($criteria);
         if ($products == null || empty($name))
             $products = array();
