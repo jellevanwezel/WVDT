@@ -89,6 +89,7 @@ class UserController extends Controller {
      */
     public function actionPassword() {
         $model = $this->loadModel(Yii::app()->user->id);
+        $model->setScenario('password');
         $oldPassword = $model->password;
         $model->password = '';
         if (isset($_POST['User'])) {

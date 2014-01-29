@@ -34,8 +34,8 @@ $form = $this->beginWidget('CActiveForm', array(
 </div>
 <hr/>
 
-<?php echo CHtml::link('Terug', array('list/index'), array('class' => "btn btn-primary")); ?>
-<?php echo CHtml::submitButton('Opslaan', array('class' => "btn btn-primary")); ?>
+<?php echo CHtml::link('<span class="glyphicon glyphicon-chevron-left"></span> Terug', array('list/index'), array('class' => "btn btn-primary")); ?>
+<?php echo CHtml::htmlButton('<span class="glyphicon glyphicon-floppy-disk"></span> Opslaan', array('class' => "btn btn-primary pull-right")); ?>
 
 
 <?php $this->endWidget(); ?>
